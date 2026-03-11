@@ -53,7 +53,7 @@ RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.ButtonPress, () => {})
 ## Example: Single encoder number input
 
 ```blocks
-RotaryEncoder.init(EncoderID.E1, DigitalPin.P8, DigitalPin.P9, DigitalPin.P11)
+RotaryEncoder.init(EncoderID.E1, DigitalPin.P0, DigitalPin.P1, DigitalPin.P2)
 let item = 0
 basic.showNumber(item)
 RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.CounterClockwise, () => {
@@ -72,14 +72,61 @@ RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.ButtonPress, () => {
 ## Example: Two encoders
 
 ```blocks
-RotaryEncoder.init(EncoderID.E1, DigitalPin.P8, DigitalPin.P9, DigitalPin.P11)
-RotaryEncoder.init(EncoderID.E2, DigitalPin.P12, DigitalPin.P13, DigitalPin.P14)
+RotaryEncoder.init(EncoderID.E1, DigitalPin.P0, DigitalPin.P1, DigitalPin.P2)
+RotaryEncoder.init(EncoderID.E2, DigitalPin.P8, DigitalPin.P9, DigitalPin.P16)
 let val1 = 0
 let val2 = 0
 RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.Clockwise, () => { val1++ })
 RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.CounterClockwise, () => { val1-- })
 RotaryEncoder.onEvent(EncoderID.E2, EncoderEvent.Clockwise, () => { val2++ })
 RotaryEncoder.onEvent(EncoderID.E2, EncoderEvent.CounterClockwise, () => { val2-- })
+```
+
+## Example: Three Encoders
+
+```blocks
+RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.CounterClockwise, function () {
+    basic.showNumber(1)
+    basic.showArrow(ArrowNames.West)
+})
+RotaryEncoder.onEvent(EncoderID.E3, EncoderEvent.CounterClockwise, function () {
+    basic.showNumber(3)
+    basic.showArrow(ArrowNames.West)
+})
+RotaryEncoder.onEvent(EncoderID.E2, EncoderEvent.Clockwise, function () {
+    basic.showNumber(2)
+    basic.showArrow(ArrowNames.East)
+})
+RotaryEncoder.onEvent(EncoderID.E2, EncoderEvent.CounterClockwise, function () {
+    basic.showNumber(2)
+    basic.showArrow(ArrowNames.West)
+})
+RotaryEncoder.onEvent(EncoderID.E3, EncoderEvent.Clockwise, function () {
+    basic.showNumber(3)
+    basic.showArrow(ArrowNames.East)
+})
+RotaryEncoder.onEvent(EncoderID.E2, EncoderEvent.ButtonPress, function () {
+    basic.showNumber(2)
+    basic.showArrow(ArrowNames.South)
+})
+RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.ButtonPress, function () {
+    basic.showNumber(1)
+    basic.showArrow(ArrowNames.South)
+})
+RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.Clockwise, function () {
+    basic.showNumber(1)
+    basic.showArrow(ArrowNames.East)
+})
+RotaryEncoder.onEvent(EncoderID.E3, EncoderEvent.ButtonPress, function () {
+    basic.showNumber(3)
+    basic.showArrow(ArrowNames.South)
+})
+basic.pause(1000)
+basic.showIcon(IconNames.Chessboard)
+RotaryEncoder.init(EncoderID.E1, DigitalPin.P0, DigitalPin.P1, DigitalPin.P2)
+RotaryEncoder.init(EncoderID.E2, DigitalPin.P8, DigitalPin.P9, DigitalPin.P16)
+RotaryEncoder.init(EncoderID.E3, DigitalPin.P13, DigitalPin.P14, DigitalPin.P15)
+
 ```
 
 ## Supported targets
