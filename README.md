@@ -1,23 +1,25 @@
 # KY-040 Rotary Encoder MakeCode Package
 
-This is the MakeCode package for the KY-040 rotary encoder, supporting up to 3 encoders simultaneously.
-
-Forked from [Tinkertanker/pxt-rotary-encoder-ky040](https://github.com/tinkertanker/pxt-rotary-encoder-ky040) with the following changes:
+This is a MakeCode extension for the KY-040 rotary encoder, supporting up to 3 encoders simultaneously.
 
 - Supports 1–3 encoders at the same time
+- Supports bare KY-040 component without PCB (uses internal microbit pull ups)
+- Added debouncing to avoid common errors with low quality KY-040 parts
+- Added basic usage connect blocks to avoid pins with other jobs, like LED, which can confuse new users
+- Advanced option is in ... more menu, with all pins
 - Removed noisy serial debug messages that interfered with student code
 
 ## Todo
 
-- test!
-- add debouncing
 - ~~change right/left to clockwise/counterclockwise~~ done
 - ~~combine rotate and button press into one block~~ done
+- add debouncing
+- test!
 - submit to makecode
 
 ## Hardware Setup
 
-Connect each encoder's CLK, DT, and SW pins to available digital pins on the micro:bit. GND to GND.
+Connect each encoder's CLK, DT, and SW pins to available digital pins on the micro:bit. Connect GND to GND.
 Rotary Encoders are simple switches, can work on 3.3v.
 
 ### Recommended pin assignments (micro:bit v2)
@@ -55,33 +57,27 @@ RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.ButtonPress, () => {})
 ## Example: Single encoder number input
 
 ```blocks
+basic.pause(1000); // --- Setup ---
+basic.showIcon(IconNames.Chessboard);
 RotaryEncoder.initE1()
-let item = 0
-basic.showNumber(item)
+let count = 13;
+led.plotBarGraph(count, 25);
+
 RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.CounterClockwise, () => {
-    item -= 1
-    basic.showNumber(item)
+    count -= 1
+  serial.writeValue("count", count);
+  led.plotBarGraph(count, 25);
 })
 RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.Clockwise, () => {
-    item += 1
-    basic.showNumber(item)
+    count += 1
+    serial.writeValue("count", count);
+    basic.showNumber(count);
 })
 RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.ButtonPress, () => {
-    basic.showString("selected!")
+    basic.showIcon(IconNames.Yes);
+    basic.pause(1000);
+    led.plotBarGraph(count, 25);
 })
-```
-
-## Example: Two encoders
-
-```blocks
-RotaryEncoder.initE1()
-RotaryEncoder.initE2()
-let val1 = 0
-let val2 = 0
-RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.Clockwise, () => { val1++ })
-RotaryEncoder.onEvent(EncoderID.E1, EncoderEvent.CounterClockwise, () => { val1-- })
-RotaryEncoder.onEvent(EncoderID.E2, EncoderEvent.Clockwise, () => { val2++ })
-RotaryEncoder.onEvent(EncoderID.E2, EncoderEvent.CounterClockwise, () => { val2-- })
 ```
 
 ## Example: Three Encoders
@@ -128,6 +124,10 @@ RotaryEncoder.initE2()
 RotaryEncoder.initE3()
 
 ```
+
+## Acknowledgements
+
+Forked from [Tinkertanker/pxt-rotary-encoder-ky040](https://github.com/tinkertanker/pxt-rotary-encoder-ky040) with the following changes:
 
 ## Supported targets
 
