@@ -102,7 +102,7 @@ namespace RotaryEncoder {
    * Connect RotaryEncoder 2: CLK=P8, DT=P9, SW=P16
    */
   //% blockId=rotary_ky_init2
-  //% block="connect RotaryEncoder 2  CLK=P8 DT=P9 SW=P16"
+  //% block="connect RotaryEncoder 2  CLK=P8 DT=P9 SW=P13"
   //% help=github:steveturbek/pxt-rotary-encoder-KY-040-multi
   //% weight=80
   export function initE2(): void {
@@ -110,7 +110,7 @@ namespace RotaryEncoder {
   }
 
   /**
-   * Connect RotaryEncoder 3: CLK=P13, DT=P14, SW=P15
+   * Connect RotaryEncoder 3: CLK=P14, DT=P15, SW=P16
    */
   //% blockId=rotary_ky_init3
   //% block="connect RotaryEncoder 3  CLK=P13 DT=P14 SW=P15"
