@@ -9,15 +9,6 @@ This is a MakeCode extension for the KY-040 rotary encoder, supporting up to 3 e
 - Advanced option is in ... more menu, with all pins
 - Removed noisy serial debug messages that interfered with student code
 
-## Todo
-
-- ~~change right/left to clockwise/counterclockwise~~ done
-- ~~combine rotate and button press into one block~~ done
-- ~~add debouncing~~
-- ~~Add activeHigh param to initAdvanced to support active-high (pull-down) switches like the RGB rotary encoder button~~
-- test!
-- submit to makecode
-
 ## Hardware Setup
 
 Connect each encoder's CLK, DT, and SW pins to available digital pins on the micro:bit. Connect GND to GND.

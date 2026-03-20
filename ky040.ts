@@ -23,12 +23,11 @@ enum EncoderID {
 //% color=50 weight=80
 //% icon="\uf01e"
 namespace RotaryEncoderPlus {
-
   // Holds all runtime state for one encoder instance
   class EncoderState {
-    clkPin: number;       // CLK pin — the primary rotation signal
-    dtPin: number;        // DT pin — direction signal, read when CLK changes
-    swPin: number;        // SW pin — the push-button switch
+    clkPin: number; // CLK pin — the primary rotation signal
+    dtPin: number; // DT pin — direction signal, read when CLK changes
+    swPin: number; // SW pin — the push-button switch
 
     // true for active-high switches (e.g. RGB encoder button connects to 3.3V when pressed).
     // false (default) for standard active-low switches (connects to GND when pressed).
@@ -50,7 +49,7 @@ namespace RotaryEncoderPlus {
 
     constructor(id: EncoderID) {
       this.activeHigh = false;
-      this.lastPressed = 1;   // will be overridden by setup() based on activeHigh
+      this.lastPressed = 1; // will be overridden by setup() based on activeHigh
       this.rotateReady = true;
       // Assign unique event IDs for this encoder so multiple encoders don't collide
       const base = 5600 + (id - 1) * 3;
@@ -100,7 +99,8 @@ namespace RotaryEncoderPlus {
       while (true) {
         const riValue = pins.digitalReadPin(enc.clkPin as DigitalPin);
         const dvValue = pins.digitalReadPin(enc.dtPin as DigitalPin);
-        if (riValue == 1 && dvValue == 1) enc.rotateReady = true;  // back at rest
+        if (riValue == 1 && dvValue == 1)
+          enc.rotateReady = true; // back at rest
         else if (enc.rotateReady) {
           if (riValue == 1 && dvValue == 0) {
             enc.rotateReady = false;
@@ -132,33 +132,33 @@ namespace RotaryEncoderPlus {
   }
 
   /**
-   * Connect RotaryEncoder 1: CLK=P0, DT=P1, SW=P2
+   * Connect RotaryEncoder 1 using default pins: CLK=P0, DT=P1, SW=P2.
    */
   //% blockId=rotary_ky_init1
   //% block="connect RotaryEncoder 1  CLK=P0 DT=P1 SW=P2"
-  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-multi
+  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-plus
   //% weight=90
   export function initE1(): void {
     setup(EncoderID.E1, DigitalPin.P0, DigitalPin.P1, DigitalPin.P2);
   }
 
   /**
-   * Connect RotaryEncoder 2: CLK=P8, DT=P9, SW=P13
+   * Connect RotaryEncoder 2 using default pins: CLK=P8, DT=P9, SW=P13.
    */
   //% blockId=rotary_ky_init2
   //% block="connect RotaryEncoder 2  CLK=P8 DT=P9 SW=P13"
-  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-multi
+  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-plus
   //% weight=80
   export function initE2(): void {
     setup(EncoderID.E2, DigitalPin.P8, DigitalPin.P9, DigitalPin.P13);
   }
 
   /**
-   * Connect RotaryEncoder 3: CLK=P14, DT=P15, SW=P16
+   * Connect RotaryEncoder 3 using default pins: CLK=P14, DT=P15, SW=P16.
    */
   //% blockId=rotary_ky_init3
   //% block="connect RotaryEncoder 3  CLK=P14 DT=P15 SW=P16"
-  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-multi
+  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-plus
   //% weight=70
   export function initE3(): void {
     setup(EncoderID.E3, DigitalPin.P14, DigitalPin.P15, DigitalPin.P16);
@@ -166,10 +166,13 @@ namespace RotaryEncoderPlus {
 
   /**
    * Run code when the rotary encoder rotates or the button is pressed.
+   * @param id which encoder to listen to
+   * @param event the event to respond to (clockwise, counter clockwise, or button pressed)
+   * @param body code to run when the event fires
    */
   //% blockId=rotary_ky_event
   //% block="on %id %event"
-  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-multi
+  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-plus
   //% weight=60
   export function onEvent(id: EncoderID, event: EncoderEvent, body: () => void): void {
     const enc = getEncoder(id);
@@ -181,12 +184,15 @@ namespace RotaryEncoderPlus {
   /**
    * Connect a rotary encoder using any digital pin.
    * Avoid LED pins P3 P4 P6 P7 P10 and accessibility pin P12.
-   * See https://github.com/steveturbek/pxt-rotary-encoder-KY-040-multi#recommended-pin-assignments-microbit-v2
-   * Set activeHigh=true for switches that connect to 3.3V when pressed (e.g. RGB rotary encoder).
+   * @param id which encoder slot to use (E1, E2, or E3)
+   * @param clk CLK pin on the encoder
+   * @param dt DT pin on the encoder
+   * @param sw SW (button) pin on the encoder
+   * @param activeHigh set to true for switches that connect to 3.3V when pressed (e.g. RGB rotary encoder); false (default) for standard encoders that connect to GND when pressed
    */
   //% blockId=rotary_ky_init_advanced
   //% block="connect %id clk %clk|dt %dt|sw %sw|active high %activeHigh"
-  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-multi
+  //% help=github:steveturbek/pxt-rotary-encoder-KY-040-plus
   //% advanced=false
   //% clk.defl=DigitalPin.P0 dt.defl=DigitalPin.P1 sw.defl=DigitalPin.P2 activeHigh.defl=false
   export function initAdvanced(id: EncoderID, clk: DigitalPin, dt: DigitalPin, sw: DigitalPin, activeHigh: boolean = false): void {
