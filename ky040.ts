@@ -1,9 +1,11 @@
 // @ts-nocheck  // hide microbit specific code errors when developing in VS Code
 
-//% color=50 weight=80
+/**
+ * Blocks for KY-040 and compatible rotary encoders. Supports up to 3 encoders.
+ */
+//% color="#a5995b" weight=80
 //% icon="\uf01e"
 //% block="Rotary Encoder"
-//% tooltip="Blocks for KY-040 and compatible rotary encoders. Supports up to 3 encoders."
 namespace rotaryEncoderPlus {
 
   // Events that a rotary encoder can fire
@@ -152,9 +154,11 @@ namespace rotaryEncoderPlus {
   /**
    * Connect rotary encoder 1 using default pins: CLK=P0, DT=P1, SW=P2.
    */
-  //% blockId=rotary_ky_connect1
+  //% blockId=rotaryencoderplus_connect1
   //% block="connect rotary encoder 1 CLK=P0 DT=P1 SW=P2"
   //% weight=90
+  //% tooltip="Connect rotary encoder 1 to default pins: CLK=P0, DT=P1, SW=P2"
+  //% helpUrl="https://github.com/steveturbek/pxt-rotary-encoder-KY-040-plus"
   export function connectEncoder1(): void {
     setup(EncoderID.E1, DigitalPin.P0, DigitalPin.P1, DigitalPin.P2);
   }
@@ -162,9 +166,11 @@ namespace rotaryEncoderPlus {
   /**
    * Connect rotary encoder 2 using default pins: CLK=P8, DT=P9, SW=P13.
    */
-  //% blockId=rotary_ky_connect2
+  //% blockId=rotaryencoderplus_connect2
   //% block="connect rotary encoder 2 CLK=P8 DT=P9 SW=P13"
   //% weight=80
+  //% tooltip="Connect rotary encoder 2 to default pins: CLK=P8, DT=P9, SW=P13"
+  //% helpUrl="https://github.com/steveturbek/pxt-rotary-encoder-KY-040-plus"
   export function connectEncoder2(): void {
     setup(EncoderID.E2, DigitalPin.P8, DigitalPin.P9, DigitalPin.P13);
   }
@@ -172,9 +178,11 @@ namespace rotaryEncoderPlus {
   /**
    * Connect rotary encoder 3 using default pins: CLK=P14, DT=P15, SW=P16.
    */
-  //% blockId=rotary_ky_connect3
+  //% blockId=rotaryencoderplus_connect3
   //% block="connect rotary encoder 3 CLK=P14 DT=P15 SW=P16"
   //% weight=70
+  //% tooltip="Connect rotary encoder 3 to default pins: CLK=P14, DT=P15, SW=P16"
+  //% helpUrl="https://github.com/steveturbek/pxt-rotary-encoder-KY-040-plus"
   export function connectEncoder3(): void {
     setup(EncoderID.E3, DigitalPin.P14, DigitalPin.P15, DigitalPin.P16);
   }
@@ -185,9 +193,11 @@ namespace rotaryEncoderPlus {
    * @param event the event to respond to (clockwise, counter clockwise, or button pressed)
    * @param body code to run when the event fires
    */
-  //% blockId=rotary_ky_event
+  //% blockId=rotaryencoderplus_event
   //% block="on %id %event"
   //% weight=60
+  //% tooltip="Run code when the rotary encoder is rotated or its button is pressed"
+  //% helpUrl="https://github.com/steveturbek/pxt-rotary-encoder-KY-040-plus"
   export function onEvent(id: EncoderID, event: EncoderEvent, body: () => void): void {
     const enc = getEncoder(id);
     if (event == EncoderEvent.Clockwise) control.onEvent(enc.rotatedClockwiseID, EncoderEvent.Clockwise, body);
@@ -204,10 +214,12 @@ namespace rotaryEncoderPlus {
    * @param sw SW (button) pin on the encoder
    * @param switchType Standard (default, connects to GND when pressed) or ActiveHigh (connects to 3.3V when pressed, e.g. RGB rotary encoder)
    */
-  //% blockId=rotary_ky_connect_advanced
+  //% blockId=rotaryencoderplus_connect_advanced
   //% block="connect %id CLK %clk|DT %dt|SW %sw|switch type %switchType"
   //% advanced=false
-  //% clk.defl=DigitalPin.P0 dt.defl=DigitalPin.P1 sw.defl=DigitalPin.P2 switchType.defl=SwitchType.Standard
+  //% tooltip="Connect a rotary encoder to any pins, with optional active-high button support"
+  //% helpUrl="https://github.com/steveturbek/pxt-rotary-encoder-KY-040-plus"
+  //% id.defl=rotaryEncoderPlus.EncoderID.E1 clk.defl=DigitalPin.P0 dt.defl=DigitalPin.P1 sw.defl=DigitalPin.P2 switchType.defl=rotaryEncoderPlus.SwitchType.Standard
   export function connectAdvanced(id: EncoderID, clk: DigitalPin, dt: DigitalPin, sw: DigitalPin, switchType: SwitchType = SwitchType.Standard): void {
     setup(id, clk, dt, sw, switchType);
   }
